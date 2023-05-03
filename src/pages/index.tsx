@@ -33,14 +33,19 @@ export default function Home() {
   }
 
   const handleDelete = (index: number) => {
-    setTaskList(current =>
-      current.filter(task => task !== taskList[index])
+    setTaskList(existingArr =>
+      existingArr.filter(task => task !== taskList[index])
     )
   }
 
   const createTask = () => {    
     if (name && description){
-      setTaskList(arr => [...arr, {name:name, description:description}])
+      setTaskList(existingArr => 
+        [
+          ...existingArr, 
+          {name:name, description:description}
+        ]
+      )
       setName('')
       setDescription('')
       setOpen(false)
@@ -66,8 +71,9 @@ export default function Home() {
     <Container sx={{mt: {xs:2, md:4}}}>
       <Box textAlign={'right'}>
         <Button variant="contained" onClick={handleOpen}>Create a Task</Button>
-      </Box>     
+      </Box>
 
+      //Task List
       <TableContainer component={Paper} sx={{mt: {xs:2, md:4}}}>
         <Table>
           <TableHead>
@@ -98,6 +104,7 @@ export default function Home() {
         </Table>
       </TableContainer>
 
+      //Create or Edit Modal
       <Modal
         open={open}
         onClose={handleClose}
